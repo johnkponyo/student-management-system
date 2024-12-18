@@ -5,6 +5,8 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const sendPasswordResetEmail = require('../services/emailService')
 
+
+
 exports.register = async (req, res) => {
     const { 
         firstName,
@@ -46,6 +48,7 @@ exports.register = async (req, res) => {
 };
 
 
+
 exports.login = async (req, res) => {
     const { email, password } = req.body;
 
@@ -71,6 +74,7 @@ exports.login = async (req, res) => {
     }
 
 };
+
 
 
 exports.passwordResetRequest = async (req, res) => {
@@ -101,6 +105,7 @@ exports.passwordResetRequest = async (req, res) => {
         res.status(500).json({ message: 'Error sending password reset email', error: error.message });
     }
 };
+
 
 
 exports.passwordReset = async (req, res) => {
@@ -135,6 +140,7 @@ exports.passwordReset = async (req, res) => {
         res.status(500).json({ message: 'Error resetting password', error: error.message });
     }
 };
+
 
 
 exports.logout = async (req, res) => {

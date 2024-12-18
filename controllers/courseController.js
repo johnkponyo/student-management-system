@@ -3,6 +3,7 @@ const logger = require('../logger');
 const { initRedis } = require('../services/redisService')
 
 
+
 exports.getAllCourses = async (req, res) => {
   try {
     // Initializing Redis client
@@ -16,9 +17,9 @@ exports.getAllCourses = async (req, res) => {
     if (semester) filter.semester = semester;
 
     // Pagination parameters
-    const page = parseInt(req.query.page) || 1; // Default to page 1 if not specified
-    const limit = parseInt(req.query.limit) || 10; // Default to 10 items per page
-    const skip = (page - 1) * limit; // Skip the appropriate number of documents based on the page number
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
 
     const cacheKey = `courses:${JSON.stringify(filter)}:page=${page}:limit=${limit}`;
     const cachedData = await client.get(cacheKey);
@@ -61,16 +62,18 @@ exports.getAllCourses = async (req, res) => {
 };
 
 
+
 exports.getCourseByCode = async (req, res) => {
   try {
     const courseCode = req.params.courseCode;
-    const course = await Course.findOne({ courseCode }); // Assuming courseCode is unique
+    const course = await Course.findOne({ courseCode });
     if (!course) return res.status(404).json({ message: 'Course not found' });
     res.status(200).json(course);
   } catch (error) {
     res.status(500).json({ message: 'Error retrieving course', error });
   }
 };
+
 
 
 exports.createCourse = async (req, res) => {
@@ -112,6 +115,7 @@ exports.updateCourse = async (req, res) => {
     res.status(500).json({ message: 'Error updating course', error });
   }
 };
+
 
 
 exports.deleteCourse = async (req, res) => {

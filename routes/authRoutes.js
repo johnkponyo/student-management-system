@@ -5,10 +5,21 @@ const { body } = require('express-validator');
 const { validate } = require('../middlewares/validatorMiddleware');
 const { authenticateAll, authenticateInstructors } = require('../middlewares/authMiddleware');
 
+
+
+/**
+ * @swagger
+ * tags:
+ *   - name: Authentication
+ *     description: Authentication and authorization endpoints
+ */
+
 /**
  * @swagger
  * /auth/register:
  *   post:
+ *     tags:
+ *       - Authentication
  *     summary: Register a new instructor
  *     description: Registers an instructor with the provided information.
  *     requestBody:
@@ -81,10 +92,14 @@ router.post(
     authController.register
 );
 
+
+
 /**
  * @swagger
  * /auth/login:
  *   post:
+ *     tags:
+ *       - Authentication
  *     summary: Login an instructor
  *     description: Login an instructor by providing email and password.
  *     requestBody:
@@ -111,10 +126,14 @@ router.post(
  */
 router.post('/login', authController.login);
 
+
+
 /**
  * @swagger
  * /auth/password-reset-request:
  *   post:
+ *     tags:
+ *       - Authentication
  *     summary: Request password reset
  *     description: Request a password reset email to be sent.
  *     requestBody:
@@ -138,10 +157,14 @@ router.post('/login', authController.login);
  */
 router.post('/password-reset-request', authController.passwordResetRequest);
 
+
+
 /**
  * @swagger
  * /auth/password-reset:
  *   post:
+ *     tags:
+ *       - Authentication
  *     summary: Reset the password
  *     description: Reset the instructor's password with a new password.
  *     requestBody:
@@ -177,10 +200,14 @@ router.post(
     authController.passwordReset 
 );
 
+
+
 /**
  * @swagger
  * /auth/logout:
  *   post:
+ *     tags:
+ *       - Authentication
  *     summary: Logout an instructor
  *     description: Logout the currently authenticated instructor.
  *     security:
@@ -194,5 +221,7 @@ router.post(
  *         description: Server error
  */
 router.post('/logout', authenticateAll, authController.logout);
+
+
 
 module.exports = router;

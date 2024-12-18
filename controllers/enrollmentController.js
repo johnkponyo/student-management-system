@@ -39,6 +39,7 @@ exports.enrollStudentInCourse = async (req, res) => {
 };
 
 
+
 exports.getCoursesForStudent = async (req, res) => {
   try {
     const studentId = req.params.studentId;
@@ -55,6 +56,7 @@ exports.getCoursesForStudent = async (req, res) => {
     res.status(500).json({ message: 'Error retrieving courses for student', error });
   }
 };
+
 
 
 exports.getStudentsInCourse = async (req, res) => {
@@ -113,6 +115,7 @@ exports.getStudentsInCourse = async (req, res) => {
   }
 
 };
+
 
 
 exports.cancelEnrollment = async (req, res) => {

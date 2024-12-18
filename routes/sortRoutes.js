@@ -3,11 +3,21 @@ const router = express.Router();
 const sortController = require('../controllers/sortController');
 const { authenticateAll, authenticateInstructors } = require('../middlewares/authMiddleware');
 
-// 1. GET /sort/students - Sort students based on a criterion (name, grade)
+
+
+/**
+ * @swagger
+ * tags:
+ *   - name: Sorting
+ *     description: Endpoints for sorting
+ */
+
 /**
  * @swagger
  * /sort/students:
  *   get:
+ *     tags:
+ *       - Sorting
  *     summary: Sort students based on a criterion
  *     description: Sort students based on a provided criterion such as name or grade.
  *     parameters:
@@ -32,11 +42,14 @@ const { authenticateAll, authenticateInstructors } = require('../middlewares/aut
  */
 router.get('/students', authenticateInstructors, sortController.sortStudents);
 
-// 2. GET /sort/courses - Sort courses based on a criterion (courseName)
+
+
 /**
  * @swagger
  * /sort/courses:
  *   get:
+ *     tags:
+ *       - Sorting
  *     summary: Sort courses based on a criterion
  *     description: Sort courses based on a provided criterion such as course name.
  *     parameters:
@@ -60,5 +73,7 @@ router.get('/students', authenticateInstructors, sortController.sortStudents);
  *         description: Server error
  */
 router.get('/courses', authenticateInstructors, sortController.sortCourses);
+
+
 
 module.exports = router;

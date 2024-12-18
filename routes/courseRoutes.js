@@ -5,11 +5,21 @@ const { body } = require('express-validator');
 const { validate } = require('../middlewares/validatorMiddleware')
 const { authenticateAll, authenticateInstructors } = require('../middlewares/authMiddleware');
 
-// 1. GET /courses - List all courses (support filtering by department, semester)
+
+
+/**
+ * @swagger
+ * tags:
+ *   - name: Course Management
+ *     description: Endpoints for managing courses
+ */
+
 /**
  * @swagger
  * /courses:
  *   get:
+ *     tags:
+ *       - Course Management
  *     summary: List all courses
  *     description: Retrieve a list of all courses, with optional filtering by department and semester.
  *     parameters:
@@ -38,11 +48,14 @@ const { authenticateAll, authenticateInstructors } = require('../middlewares/aut
  */
 router.get('/', authenticateAll, courseController.getAllCourses);
 
-// 2. GET /courses/:courseCode - Retrieve specific course details
+
+
 /**
  * @swagger
  * /courses/{courseCode}:
  *   get:
+ *     tags:
+ *       - Course Management
  *     summary: Retrieve specific course details
  *     description: Retrieve details of a specific course by its course code.
  *     parameters:
@@ -64,11 +77,15 @@ router.get('/', authenticateAll, courseController.getAllCourses);
  */
 router.get('/:courseCode', authenticateAll, courseController.getCourseByCode);
 
+
+
 // 3. POST /courses - Create a new course
 /**
  * @swagger
  * /courses:
  *   post:
+ *     tags:
+ *       - Course Management
  *     summary: Create a new course
  *     description: Allows an instructor to create a new course with details such as course code, name, description, credits, semester, and department.
  *     requestBody:
@@ -134,11 +151,14 @@ router.post(
     courseController.createCourse
 );
 
-// 4. PUT /courses/:courseCode - Update course information
+
+
 /**
  * @swagger
  * /courses/{courseCode}:
  *   put:
+ *     tags:
+ *       - Course Management
  *     summary: Update course information
  *     description: Update the details of an existing course by its course code.
  *     parameters:
@@ -184,11 +204,14 @@ router.post(
  */
 router.put('/:courseCode', authenticateInstructors, courseController.updateCourse);
 
-// 5. DELETE /courses/:courseCode - Remove course from catalog
+
+
 /**
  * @swagger
  * /courses/{courseCode}:
  *   delete:
+ *     tags:
+ *       - Course Management
  *     summary: Remove course from catalog
  *     description: Delete a course from the course catalog using its course code.
  *     parameters:
@@ -209,5 +232,7 @@ router.put('/:courseCode', authenticateInstructors, courseController.updateCours
  *         description: Server error
  */
 router.delete('/:courseCode', authenticateInstructors, courseController.deleteCourse);
+
+
 
 module.exports = router;

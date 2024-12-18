@@ -2,18 +2,15 @@ const { quickSort, mergeSort } = require('../utils/sortingAlgorithms');
 const Student = require('../models/studentModel');
 const Course = require('../models/courseModel');
 
-// Comparing by name
+
+
+// Comparing by last name
 const compareByName = (a, b, order) => {
-  const comparison = a.firstName.localeCompare(b.firstName);
+  const comparison = a.lastName.localeCompare(b.lastName);
   return order === 'asc' ? comparison : -comparison;
 };
 
-// Comparing by grade (for students)
-const compareByGrade = (a, b, order) => {
-  const grades = ['A', 'B', 'C', 'D', 'E', 'F', 'Incomplete'];
-  const comparison = grades.indexOf(a.grade) - grades.indexOf(b.grade);
-  return order === 'asc' ? comparison : -comparison;
-};
+
 
 // Sorting function for courses by course name
 const compareByCourseName = (a, b, order) => {
@@ -24,7 +21,9 @@ const compareByCourseName = (a, b, order) => {
 
 
 exports.sortStudents = async (req, res) => {
+
   try {
+
     const { criterion, order = 'asc', algorithm, page = 1, limit = 10 } = req.query;
     const skip = (page - 1) * limit;
 
@@ -32,15 +31,10 @@ exports.sortStudents = async (req, res) => {
 
     let sortedStudents = [];
     
-    // Determining the sorting function based on the criterion
-    if (criterion === 'name') {
+    if (criterion === 'lastName') {
       sortedStudents = algorithm === 'quick' 
         ? quickSort(students, (a, b) => compareByName(a, b, order)) 
         : mergeSort(students, (a, b) => compareByName(a, b, order));
-    } else if (criterion === 'grade') {
-      sortedStudents = algorithm === 'quick' 
-        ? quickSort(students, (a, b) => compareByGrade(a, b, order)) 
-        : mergeSort(students, (a, b) => compareByGrade(a, b, order));
     } else {
       return res.status(400).json({ message: 'Invalid sorting criterion' });
     }
@@ -66,6 +60,7 @@ exports.sortStudents = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: 'Error sorting students', error });
   }
+
 };
 
 

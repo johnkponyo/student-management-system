@@ -5,10 +5,21 @@ const { body } = require('express-validator');
 const { validate } = require('../middlewares/validatorMiddleware');
 const { authenticateAll, authenticateInstructors } = require('../middlewares/authMiddleware');
 
+
+
+/**
+ * @swagger
+ * tags:
+ *   - name: Student Management
+ *     description: Endpoints for managing students
+ */
+
 /**
  * @swagger
  * /students/login:
  *   post:
+ *     tags:
+ *       - Authentication
  *     summary: Student login
  *     description: Login a student by providing email and password.
  *     requestBody:
@@ -35,10 +46,14 @@ const { authenticateAll, authenticateInstructors } = require('../middlewares/aut
  */
 router.post('/login', studentController.login);
 
+
+
 /**
  * @swagger
  * /students:
  *   get:
+ *     tags:
+ *       - Student Management
  *     summary: Retrieve all students
  *     description: Retrieve a list of all students with optional query parameters to filter results.
  *     parameters:
@@ -78,10 +93,14 @@ router.post('/login', studentController.login);
  */
 router.get('/', authenticateInstructors, studentController.getAllStudents);
 
+
+
 /**
  * @swagger
  * /students/{id}:
  *   get:
+ *     tags:
+ *       - Student Management
  *     summary: Retrieve a student's details
  *     description: Retrieve a specific student's details by their ID.
  *     parameters:
@@ -101,10 +120,14 @@ router.get('/', authenticateInstructors, studentController.getAllStudents);
  */
 router.get('/:id', authenticateAll, studentController.getStudentById);
 
+
+
 /**
  * @swagger
  * /students:
  *   post:
+ *     tags:
+ *       - Student Management
  *     summary: Create a new student
  *     description: Create a new student with the provided details.
  *     requestBody:
@@ -177,10 +200,14 @@ router.post(
     studentController.createStudent
 );
 
+
+
 /**
  * @swagger
  * /students/{id}:
  *   put:
+ *     tags:
+ *       - Student Management
  *     summary: Update an existing student's details
  *     description: Update the details of a student by their ID.
  *     parameters:
@@ -237,10 +264,14 @@ router.post(
  */
 router.put('/:id', authenticateAll, studentController.updateStudent);
 
+
+
 /**
  * @swagger
  * /students/{id}:
  *   delete:
+ *     tags:
+ *       - Student Management
  *     summary: Delete a student
  *     description: Delete a student by their ID.
  *     parameters:
@@ -259,5 +290,7 @@ router.put('/:id', authenticateAll, studentController.updateStudent);
  *         description: Server error
  */
 router.delete('/:id', authenticateInstructors, studentController.deleteStudent);
+
+
 
 module.exports = router;

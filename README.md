@@ -1,4 +1,4 @@
-# Student Management System
+# Student Management System - API
 
 A comprehensive Student Management System built with Node.js and Express. It offers secure authentication, student and course management, and enrollment management. The API also supports sorting and various administrative features to help manage the student data and related tasks effectively.
 

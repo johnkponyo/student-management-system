@@ -5,11 +5,21 @@ const { body } = require('express-validator');
 const { validate } = require('../middlewares/validatorMiddleware')
 const { authenticateAll, authenticateInstructors } = require('../middlewares/authMiddleware');
 
-// 1. POST /enrollments - Enroll student in course
+
+
+/**
+ * @swagger
+ * tags:
+ *   - name: Enrollment Management
+ *     description: Endpoints for managing enrollments
+ */
+
 /**
  * @swagger
  * /enrollments:
  *   post:
+ *     tags:
+ *       - Enrollment Management
  *     summary: Enroll a student in a course
  *     description: Enroll a student in a specific course, requiring student ID, course ID, and instructor ID.
  *     requestBody:
@@ -57,11 +67,14 @@ router.post(
     enrollmentController.enrollStudentInCourse
 );
 
-// 2. GET /enrollments/student/:studentId - Retrieve all courses for a student
+
+
 /**
  * @swagger
  * /enrollments/student/{studentId}:
  *   get:
+ *     tags:
+ *       - Enrollment Management
  *     summary: Retrieve all courses for a student
  *     description: Retrieve all the courses a student is enrolled in by providing the student ID.
  *     parameters:
@@ -83,11 +96,14 @@ router.post(
  */
 router.get('/student/:studentId', authenticateAll, enrollmentController.getCoursesForStudent);
 
-// 3. GET /enrollments/course/:courseId - Retrieve all students enrolled in a course
+
+
 /**
  * @swagger
  * /enrollments/course/{courseId}:
  *   get:
+ *     tags:
+ *       - Enrollment Management
  *     summary: Retrieve all students enrolled in a course
  *     description: Retrieve a list of all students enrolled in a specific course by providing the course ID.
  *     parameters:
@@ -109,11 +125,14 @@ router.get('/student/:studentId', authenticateAll, enrollmentController.getCours
  */
 router.get('/course/:courseId', authenticateInstructors, enrollmentController.getStudentsInCourse);
 
-// 4. DELETE /enrollments/:enrollmentId - Cancel specific enrollment
+
+
 /**
  * @swagger
  * /enrollments/{enrollmentId}:
  *   delete:
+ *     tags:
+ *       - Enrollment Management
  *     summary: Cancel specific enrollment
  *     description: Cancel the enrollment for a specific student in a course using the enrollment ID.
  *     parameters:
@@ -134,5 +153,7 @@ router.get('/course/:courseId', authenticateInstructors, enrollmentController.ge
  *         description: Server error
  */
 router.delete('/:enrollmentId', authenticateAll, enrollmentController.cancelEnrollment);
+
+
 
 module.exports = router;

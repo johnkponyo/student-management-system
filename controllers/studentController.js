@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 const { initRedis } = require('../services/redisService')
 
 
+
 exports.login = async (req, res) => {
   
   const { email, password } = req.body;
@@ -33,6 +34,7 @@ exports.login = async (req, res) => {
   }
 
 };
+
 
 
 exports.getAllStudents = async (req, res) => {
@@ -95,6 +97,7 @@ exports.getAllStudents = async (req, res) => {
 };
 
 
+
 exports.getStudentById = async (req, res) => {
   try {
     //Restrict student to access self details
@@ -126,6 +129,7 @@ async function generateStudentId() {
   }
 
 
+
 exports.createStudent = async (req, res) => {
   try {
     // Generate a unique student ID
@@ -152,6 +156,7 @@ exports.createStudent = async (req, res) => {
 };
 
 
+
 exports.updateStudent = async (req, res) => {
   try {
     //Restrict student to update self details
@@ -166,6 +171,7 @@ exports.updateStudent = async (req, res) => {
     res.status(500).json({ message: 'Error updating student', error });
   }
 };
+
 
 
 exports.deleteStudent = async (req, res) => {

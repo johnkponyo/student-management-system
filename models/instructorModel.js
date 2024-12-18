@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+
+
 //Instructor schema
 const instructorSchema = new Schema(
   {
@@ -18,5 +20,7 @@ const instructorSchema = new Schema(
   }
 
 );
+
+
 
 module.exports = mongoose.model('Instructor', instructorSchema);

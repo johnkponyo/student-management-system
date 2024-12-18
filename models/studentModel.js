@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+
+
 //Student schema
 const studentSchema = new Schema({
   studentId: { type: String, required: true },
@@ -15,5 +17,7 @@ const studentSchema = new Schema({
   status: { type: String, enum: ['Active', 'Inactive'], default: 'Active' },
   password: {type: String, required: true, default: 'xxxxxxxxxx'}
 });
+
+
 
 module.exports = mongoose.model('Student', studentSchema);
